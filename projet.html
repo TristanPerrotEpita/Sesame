@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Silo Alpha | Documents</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <main class="max-w-6xl mx-auto py-12 px-6">
+        <div class="flex items-center space-x-2 text-xs text-gray-400 mb-6 uppercase tracking-widest font-bold">
+            <a href="index.html" class="hover:text-black">Mes Silos</a>
+            <i class="fas fa-chevron-right text-[8px]"></i>
+            <span class="text-black">Projet Alpha</span>
+        </div>
+
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h1 class="text-3xl font-bold">Documents du Silo Alpha</h1>
+                <p class="text-gray-500 text-sm">Zone de haute confidentialité. Toute action est tracée.</p>
+            </div>
+            <button class="bg-black text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 transition">
+                <i class="fas fa-upload mr-2"></i> Ajouter un fichier
+            </button>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 border-b border-gray-200 text-xs uppercase text-gray-400 font-bold">
+                    <tr>
+                        <th class="px-6 py-4 tracking-wider">Nom du fichier</th>
+                        <th class="px-6 py-4 tracking-wider">Dernière modif.</th>
+                        <th class="px-6 py-4 tracking-wider">Taille</th>
+                        <th class="px-6 py-4 tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 text-sm">
+                    <tr class="hover:bg-gray-50 transition group">
+                        <td class="px-6 py-4 flex items-center">
+                            <i class="far fa-file-pdf text-red-500 mr-3 text-lg"></i>
+                            <span class="font-medium">Simulation_RPR_v3.pdf</span>
+                        </td>
+                        <td class="px-6 py-4 text-gray-500">Aujourd'hui, 10:45</td>
+                        <td class="px-6 py-4 text-gray-400">142.5 Mo</td>
+                        <td class="px-6 py-4">
+                            <a href="historique.html" class="text-gray-400 hover:text-black font-semibold mr-4">Historique</a>
+                            <button class="text-black font-bold">Ouvrir</button>
+                        </td>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>
