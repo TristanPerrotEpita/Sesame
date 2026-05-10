@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesame | Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <nav class="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center space-x-8">
+            <div class="text-xl font-bold tracking-tighter flex items-center gap-2">
+                <i class="fas fa-shield-halved"></i> Sesame
+            </div>
+            <div class="flex space-x-6 text-sm">
+                <a href="index.html" class="nav-link">Mes Projets</a>
+                <a href="explorer.html" class="nav-link-active">Explorer</a>
+                <a href="permissions.html" class="nav-link">Permissions</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="profil.html" class="flex items-center space-x-2 bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 transition">
+                <div class="w-6 h-6 bg-black rounded-full text-white text-[10px] flex items-center justify-center">AS</div>
+                <span class="text-sm font-medium">Alice Simon</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto py-12 px-6">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold mb-2">Annuaire & Projets</h1>
+            <p class="text-gray-500">Recherchez un collaborateur ou demandez l'accès à un silo.</p>
+        </header>
+
+        <div class="max-w-2xl mx-auto mb-12">
+            <div class="relative">
+                <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <input type="text" placeholder="Rechercher (ex: Thermohydraulique, Jean...)" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition text-base">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-8">
+            <!-- Projets publics / demandables -->
+            <div>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4 flex items-center gap-2">
+                    <i class="fas fa-box-archive"></i> Silos de l'organisation
+                </h2>
+                <div class="space-y-4">
+                    <div class="bg-white border border-gray-200 p-5 rounded-xl shadow-sm flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-gray-900 flex items-center gap-2">
+                                R&D Nouveaux Matériaux <i class="fas fa-lock text-gray-300 text-xs" title="Accès restreint"></i>
+                            </h3>
+                            <p class="text-xs text-gray-500 mt-1">Département Recherche · 12 membres</p>
+                        </div>
+                        <button class="text-xs font-bold bg-gray-100 border border-gray-200 text-gray-700 px-3 py-1.5 rounded hover:bg-gray-200 transition">
+                            Demander l'accès
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annuaire collaborateurs -->
+            <div>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4 flex items-center gap-2">
+                    <i class="fas fa-address-book"></i> Annuaire
+                </h2>
+                <div class="space-y-4">
+                    <div class="bg-white border border-gray-200 p-4 rounded-xl shadow-sm flex items-center gap-4">
+                        <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center font-bold text-sm text-gray-600 border border-gray-200">PB</div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-sm">Paul Bertrand</h3>
+                            <p class="text-xs text-gray-500">Directeur Sûreté · p.bertrand@framatome.fr</p>
+                        </div>
+                    </div>
+                    <div class="bg-white border border-gray-200 p-4 rounded-xl shadow-sm flex items-center gap-4">
+                        <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center font-bold text-sm text-gray-600 border border-gray-200">SL</div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-sm">Sophie Leroy</h3>
+                            <p class="text-xs text-gray-500">Ingénieure Études · s.leroy@framatome.fr</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesame | Contact DSI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <nav class="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center space-x-8">
+            <div class="text-xl font-bold tracking-tighter flex items-center gap-2">
+                <i class="fas fa-shield-halved"></i> Sesame
+            </div>
+            <div class="flex space-x-6 text-sm">
+                <a href="index.html" class="nav-link">Mes Projets</a>
+                <a href="explorer.html" class="nav-link">Explorer</a>
+                <a href="permissions.html" class="nav-link">Permissions</a>
+                <a href="contact.html" class="nav-link-active">Contact</a>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="profil.html" class="flex items-center space-x-2 bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 transition">
+                <div class="w-6 h-6 bg-black rounded-full text-white text-[10px] flex items-center justify-center">AS</div>
+                <span class="text-sm font-medium">Alice Simon</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto py-12 px-6">
+        <header class="mb-10">
+            <h1 class="text-3xl font-bold mb-2">Support DSI & Sécurité</h1>
+            <p class="text-gray-500">Besoin d'aide ou signalement d'un incident de sécurité.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="bg-white border border-gray-200 p-6 rounded-xl shadow-sm text-center">
+                <i class="fas fa-phone text-2xl text-gray-400 mb-3"></i>
+                <h3 class="font-bold text-sm mb-1">Urgence Sécurité</h3>
+                <p class="text-xs text-gray-500 mb-2">Poste interne 4040</p>
+                <span class="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">24/7</span>
+            </div>
+            <div class="bg-white border border-gray-200 p-6 rounded-xl shadow-sm text-center">
+                <i class="fas fa-envelope text-2xl text-gray-400 mb-3"></i>
+                <h3 class="font-bold text-sm mb-1">Support IT</h3>
+                <p class="text-xs text-gray-500 mono">support.it@framatome.fr</p>
+            </div>
+            <div class="bg-white border border-gray-200 p-6 rounded-xl shadow-sm text-center">
+                <i class="fas fa-book text-2xl text-gray-400 mb-3"></i>
+                <h3 class="font-bold text-sm mb-1">Documentation</h3>
+                <a href="#" class="text-xs text-blue-600 hover:underline">Wiki Entreprise</a>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-8">
+            <h2 class="text-lg font-bold mb-6">Ouvrir un ticket</h2>
+            <form class="space-y-5">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Sujet</label>
+                    <input type="text" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-black" placeholder="Titre de votre demande">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Catégorie</label>
+                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-black bg-white">
+                        <option>Demande d'accès (Création de Silo)</option>
+                        <option>Problème MFA/2FA</option>
+                        <option>Incident de confidentialité</option>
+                        <option>Autre</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Description</label>
+                    <textarea rows="5" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-black" placeholder="Détaillez votre problème..."></textarea>
+                </div>
+                <button type="button" class="w-full bg-black text-white font-bold py-3 rounded-lg hover:bg-gray-800 transition">
+                    Envoyer au support
+                </button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesame | Connexion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-900 flex items-center justify-center min-h-screen">
+    
+    <div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-sm border border-gray-200">
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-12 h-12 bg-black text-white rounded-xl mb-4">
+                <i class="fas fa-shield-halved text-xl"></i>
+            </div>
+            <h1 class="text-2xl font-bold tracking-tight mb-1">Sesame</h1>
+            <p class="text-sm text-gray-500">Plateforme Sécurisée Framatome</p>
+        </div>
+
+        <form action="index.html" class="space-y-5">
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-1">E-mail professionnel</label>
+                <div class="relative">
+                    <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input type="email" placeholder="prenom.nom@framatome.fr" class="w-full border border-gray-300 rounded-lg pl-9 pr-4 py-2.5 focus:outline-none focus:border-black focus:ring-1 focus:ring-black">
+                </div>
+            </div>
+            
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label class="block text-sm font-bold text-gray-700">Mot de passe</label>
+                </div>
+                <div class="relative">
+                    <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input type="password" placeholder="••••••••" class="w-full border border-gray-300 rounded-lg pl-9 pr-4 py-2.5 focus:outline-none focus:border-black focus:ring-1 focus:ring-black">
+                </div>
+            </div>
+
+            <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 flex items-start gap-3">
+                <i class="fas fa-mobile-screen-button text-gray-500 mt-0.5"></i>
+                <p class="text-xs text-gray-600 leading-relaxed">Une validation MFA via votre application Authenticator vous sera demandée à l'étape suivante.</p>
+            </div>
+
+            <button type="submit" class="w-full bg-black text-white font-bold py-3 rounded-lg hover:bg-gray-800 transition">
+                Connexion sécurisée
+            </button>
+        </form>
+
+        <div class="mt-8 text-center text-xs text-gray-400">
+            <p>Protection Zero Trust · Traçabilité Intégrale</p>
+        </div>
+    </div>
+
+</body>
+</html>

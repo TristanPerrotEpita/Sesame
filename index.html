@@ -1,69 +1,116 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sesame | Accueil</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
-<body class="bg-gray-50">
+<body class="bg-gray-50 text-gray-900">
     <nav class="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center sticky top-0 z-50">
         <div class="flex items-center space-x-8">
-            <div class="text-xl font-bold tracking-tighter">Sesame</div>
+            <div class="text-xl font-bold tracking-tighter flex items-center gap-2">
+                <i class="fas fa-shield-halved"></i> Sesame
+            </div>
             <div class="flex space-x-6 text-sm">
-                <a href="index.html" class="nav-link-active py-2">Mes Projets</a>
-                <a href="permissions.html" class="text-gray-500 hover:text-black py-2 transition">Permissions</a>
+                <a href="index.html" class="nav-link-active">Mes Projets</a>
+                <a href="explorer.html" class="nav-link">Explorer</a>
+                <a href="permissions.html" class="nav-link">Permissions</a>
+                <a href="contact.html" class="nav-link">Contact</a>
             </div>
         </div>
         <div class="flex items-center space-x-4">
-            <a href="profil.html"
-                class="flex items-center space-x-2 bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 transition">
-                <div class="w-6 h-6 bg-black rounded-full text-white text-[10px] flex items-center justify-center">AS
-                </div>
+            <a href="profil.html" class="flex items-center space-x-2 bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 transition">
+                <div class="w-6 h-6 bg-black rounded-full text-white text-[10px] flex items-center justify-center">AS</div>
                 <span class="text-sm font-medium">Alice Simon</span>
             </a>
         </div>
     </nav>
 
     <main class="max-w-6xl mx-auto py-12 px-6">
-        <header class="mb-10">
-            <h1 class="text-3xl font-bold mb-2">Bienvenue, Alice.</h1>
-            <p class="text-gray-500">Vous avez accès à 2 silos sécurisés pour le compte de Framatome.</p>
+        <header class="mb-10 flex justify-between items-end">
+            <div>
+                <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">
+                    <i class="fas fa-lock"></i> Framatome · Espace Sécurisé
+                </div>
+                <h1 class="text-3xl font-bold mb-2">Bienvenue, Alice.</h1>
+                <p class="text-gray-500">Vous avez accès à 2 silos cloisonnés. Vos actions sont auditées.</p>
+            </div>
+            <button class="bg-black text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition shadow-sm">
+                <i class="fas fa-plus mr-2"></i>Nouveau silo
+            </button>
         </header>
 
-        <div class="silo-grid">
-            <a href="projet.html" class="glass-card p-8 rounded-2xl flex flex-col justify-between h-64 group">
+        <div class="silo-grid mb-12">
+            <!-- Silo 1 -->
+            <a href="projet.html" class="glass-card p-8 rounded-2xl flex flex-col justify-between h-64 group bg-white">
                 <div>
-                    <div class="w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-atom text-xl"></i>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-black text-white rounded-lg flex items-center justify-center shadow-sm">
+                            <i class="fas fa-atom text-xl"></i>
+                        </div>
+                        <span class="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Actif</span>
                     </div>
-                    <h2 class="text-xl font-semibold mb-2">Projet Alpha</h2>
-                    <p class="text-sm text-gray-400">Simulation thermohydraulique et calculs de maillage.</p>
+                    <h2 class="text-xl font-bold mb-2">Projet Alpha</h2>
+                    <p class="text-sm text-gray-500">Simulation thermohydraulique et calculs de maillage. Haute confidentialité.</p>
                 </div>
                 <div class="flex justify-between items-center pt-4 border-t border-gray-100">
-                    <span class="text-xs font-mono text-gray-400 uppercase tracking-widest">14 Fichiers</span>
+                    <div class="flex gap-4">
+                        <span class="text-xs mono text-gray-500">14 Fichiers</span>
+                        <span class="text-xs mono text-gray-400">142 Mo</span>
+                    </div>
                     <i class="fas fa-arrow-right text-gray-300 group-hover:text-black transition"></i>
                 </div>
             </a>
 
-            <a href="#" class="glass-card p-8 rounded-2xl flex flex-col justify-between h-64 group opacity-80">
+            <!-- Silo 2 -->
+            <a href="#" class="glass-card p-8 rounded-2xl flex flex-col justify-between h-64 group bg-white opacity-80">
                 <div>
-                    <div class="w-12 h-12 bg-gray-200 text-gray-600 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-shield-virus text-xl"></i>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-12 h-12 bg-gray-100 border border-gray-200 text-gray-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-shield-virus text-xl"></i>
+                        </div>
+                        <span class="bg-gray-100 text-gray-600 border border-gray-200 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider flex items-center gap-1">
+                            <i class="fas fa-lock text-[8px]"></i> Lecture seule
+                        </span>
                     </div>
-                    <h2 class="text-xl font-semibold mb-2">Sûreté Bâtiment</h2>
-                    <p class="text-sm text-gray-400">Protocoles de confinement et audits externes.</p>
+                    <h2 class="text-xl font-bold mb-2">Sûreté Bâtiment</h2>
+                    <p class="text-sm text-gray-500">Protocoles de confinement et audits externes.</p>
                 </div>
                 <div class="flex justify-between items-center pt-4 border-t border-gray-100">
-                    <span class="text-xs font-mono text-gray-400 uppercase tracking-widest">3 Fichiers</span>
-                    <i class="fas fa-arrow-right text-gray-300 group-hover:text-black transition"></i>
+                    <div class="flex gap-4">
+                        <span class="text-xs mono text-gray-500">3 Fichiers</span>
+                        <span class="text-xs mono text-gray-400">28 Mo</span>
+                    </div>
+                    <i class="fas fa-arrow-right text-gray-300 group-hover:text-gray-600 transition"></i>
                 </div>
             </a>
         </div>
+
+        <!-- Activité récente -->
+        <div>
+            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Activité récente</h2>
+            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <table class="w-full text-left text-sm">
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 w-32"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-bold uppercase">Modification</span></td>
+                            <td class="px-6 py-4 font-medium mono">Simulation_RPR_v3.pdf</td>
+                            <td class="px-6 py-4 text-gray-500">Projet Alpha</td>
+                            <td class="px-6 py-4 text-gray-400 text-right">Aujourd'hui, 10:45</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4"><span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs font-bold uppercase">Lecture</span></td>
+                            <td class="px-6 py-4 font-medium mono">Audit_Q2_Final.docx</td>
+                            <td class="px-6 py-4 text-gray-500">Sûreté Bâtiment</td>
+                            <td class="px-6 py-4 text-gray-400 text-right">Hier, 16:30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </main>
 </body>
-
 </html>
