@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesame | Équipes & Collaborateurs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .avatar-group {
+            display: flex;
+            align-items: center;
+        }
+        .avatar-overlap {
+            margin-right: -8px;
+            transition: transform 0.2s ease, z-index 0.2s ease;
+        }
+        .avatar-overlap:hover {
+            transform: translateY(-4px);
+            z-index: 10;
+        }
+        .toast-notification {
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .dropdown-menu {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col justify-between">
+    <div>
+        <nav class="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center sticky top-0 z-50">
+            <div class="flex items-center space-x-8">
+                <div class="text-xl font-bold tracking-tighter flex items-center gap-2">
+                    <i class="fas fa-shield-halved"></i> Sesame
+                </div>
+                <div class="flex space-x-6 text-sm">
+                    <a href="index.html" class="nav-link">Mes Projets</a>
+                    <a href="explorer.html" class="nav-link">Explorer</a>
+                    <a href="equipes.html" class="nav-link-active">Équipes</a>
+                    <a href="permissions.html" class="nav-link">Permissions</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="profil.html" class="flex items-center space-x-2 bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 transition">
+                    <div class="w-6 h-6 bg-black rounded-full text-white text-[10px] flex items-center justify-center font-bold">AS</div>
+                    <span class="text-sm font-medium">Alice Simon</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="max-w-6xl mx-auto py-12 px-6">
+            <header class="mb-10 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
+                <div>
+                    <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">
+                        <i class="fas fa-lock"></i> Framatome · Espace Sécurisé
+                    </div>
+                    <h1 class="text-3xl font-bold mb-2">Équipes & Collaborateurs</h1>
+                    <p class="text-gray-500">Gérez les équipes projets cloisonnées et accédez à l'annuaire des contacts professionnels.</p>
+                </div>
+                <button onclick="openModal()" class="bg-black text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-zinc-800 transition shadow-sm flex items-center gap-2 whitespace-nowrap self-start md:self-auto">
+                    <i class="fas fa-plus text-xs"></i>
+                    <span>Nouvelle équipe</span>
+                </button>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- COLONNE GAUCHE: Équipes actuelles (8/12) -->
+                <section class="lg:col-span-7 xl:col-span-8 space-y-6">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs">
+                        <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <i class="fas fa-users-rectangle text-gray-400"></i> Équipes Actuelles
+                        </h2>
+                        
+                        <!-- Barre de recherche et filtres pour équipes -->
+                        <div class="flex flex-col md:flex-row gap-3 mb-6">
+                            <div class="relative flex-grow">
+                                <i class="fas fa-search absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs"></i>
+                                <input type="text" id="team-search" placeholder="Rechercher une équipe..." class="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50/50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition">
+                            </div>
+                            <div class="flex gap-1.5 overflow-x-auto pb-1 md:pb-0" id="team-filter-pills">
+                                <button onclick="filterTeams('all')" class="team-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-black text-white border border-black transition whitespace-nowrap">
+                                    Toutes
+                                </button>
+                                <button onclick="filterTeams('actif')" class="team-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-600 hover:text-black bg-white hover:bg-gray-50 border border-gray-200 transition whitespace-nowrap">
+                                    Actif
+                                </button>
+                                <button onclick="filterTeams('lecture')" class="team-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-600 hover:text-black bg-white hover:bg-gray-50 border border-gray-200 transition whitespace-nowrap">
+                                    Lecture seule
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Grille / Liste des équipes -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="teams-list">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- COLONNE DROITE: Contacts (4/12) -->
+                <section class="lg:col-span-5 xl:col-span-4">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs sticky top-28">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                                <i class="fas fa-address-book text-gray-400"></i> Liste des Contacts
+                            </h2>
+                            <span class="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-0.5 rounded-full" id="contacts-count">8</span>
+                        </div>
+                        
+                        <!-- Recherche contacts -->
+                        <div class="mb-5 relative">
+                            <i class="fas fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs"></i>
+                            <input type="text" id="contact-search" placeholder="Filtrer les collaborateurs..." class="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50/50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition">
+                        </div>
+
+                        <!-- Liste de contacts -->
+                        <div class="space-y-3 max-h-[500px] overflow-y-auto pr-1" id="contacts-list">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Pied de page -->
+    <footer class="border-t border-gray-200 bg-white py-6 mt-16 text-center text-xs text-gray-400">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>© 2026 Sesame · Framatome. Tous droits réservés.</p>
+            <div class="flex gap-4">
+                <a href="contact.html" class="hover:text-gray-600 transition">Assistance technique</a>
+                <span>·</span>
+                <a href="#" class="hover:text-gray-600 transition">Politique de sécurité</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL : Création d'équipe -->
+    <div id="team-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white border border-gray-200 w-full max-w-md p-6 rounded-2xl shadow-xl transform scale-95 opacity-0 transition-all duration-300" id="team-modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="font-bold text-lg text-gray-900 flex items-center gap-2">
+                    <i class="fas fa-users-gear text-black"></i>
+                    <span>Créer une nouvelle équipe</span>
+                </h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-black transition w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-100">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form onsubmit="handleCreateTeam(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Nom de l'équipe</label>
+                    <input type="text" id="modal-team-name" required placeholder="ex: Projet Gamma, Sûreté Eau" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Statut d'accès</label>
+                    <select id="modal-team-status" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black bg-white">
+                        <option value="actif">Actif (Silo sécurisé ouvert)</option>
+                        <option value="lecture">Lecture seule (Accès restreint)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1">Description</label>
+                    <textarea id="modal-team-desc" rows="3" required placeholder="Décrivez les objectifs et limites de cette équipe..." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black"></textarea>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closeModal()" class="w-1/2 border border-gray-300 text-gray-700 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-50 transition">
+                        Annuler
+                    </button>
+                    <button type="submit" class="w-1/2 bg-black hover:bg-zinc-800 text-white py-2.5 rounded-lg text-sm font-semibold transition">
+                        Créer l'équipe
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DROPDOWN : Sélecteur d'équipe pour l'ajout d'un contact -->
+    <div id="add-member-dropdown" class="dropdown-menu absolute bg-white border border-gray-200 rounded-xl shadow-xl w-56 z-50 p-2 text-sm flex flex-col space-y-1">
+        <div class="px-2 py-1.5 text-xs text-gray-400 font-bold uppercase tracking-wider border-b border-gray-100 mb-1">
+            Ajouter à l'équipe...
+        </div>
+        <div id="dropdown-teams-list" class="max-h-40 overflow-y-auto space-y-0.5">
+            <!-- Dynamic dropdown links -->
+        </div>
+    </div>
+
+    <!-- NOTIFICATION : Toasts -->
+    <div class="fixed bottom-6 left-6 z-50">
+        <div id="toast-notify" class="toast-notification bg-black text-white px-4 py-3 rounded-xl shadow-lg border border-zinc-800 text-xs font-medium flex items-center gap-3 max-w-sm">
+            <div class="w-5 h-5 bg-zinc-800 rounded-full flex items-center justify-center text-emerald-400" id="toast-icon">
+                <i class="fas fa-check text-[10px]"></i>
+            </div>
+            <span id="toast-message">Alice Simon a rejoint le Projet Alpha</span>
+        </div>
+    </div>
+
+    <!-- Hub de debug maquette -->
+    <script src="debug-hub.js" defer></script>
+
+    <!-- Interactive script -->
+    <script>
+        // Database
+        const contacts = [
+            { id: 'as', name: 'Alice Simon', initials: 'AS', email: 'a.simon@framatome.fr', role: 'Ingénieure Thermohydraulique', dept: 'Engineering', status: 'online', color: 'bg-black text-white' },
+            { id: 'ja', name: 'Jean Auditeur', initials: 'JA', email: 'j.auditeur@framatome.fr', role: 'Auditeur Interne', dept: 'Audits', status: 'online', color: 'bg-zinc-100 text-zinc-800 border border-zinc-200' },
+            { id: 'ml', name: 'Marie Laurent', initials: 'ML', email: 'm.laurent@framatome.fr', role: 'Développeuse Calcul', dept: 'Engineering', status: 'away', color: 'bg-zinc-100 text-zinc-800 border border-zinc-200' },
+            { id: 'pb', name: 'Paul Bertrand', initials: 'PB', email: 'p.bertrand@framatome.fr', role: 'Directeur Sûreté', dept: 'Direction', status: 'offline', color: 'bg-zinc-100 text-zinc-800 border border-zinc-200' },
+            { id: 'sl', name: 'Sophie Leroy', initials: 'SL', email: 's.leroy@framatome.fr', role: 'Ingénieure Études', dept: 'Engineering', status: 'online', color: 'bg-zinc-100 text-zinc-800 border border-zinc-200' },
+            { id: 'pd', name: 'Pierre Dupont', initials: 'PD', email: 'p.dupont@framatome.fr', role: 'Spécialiste Matériaux', dept: 'Recherche', status: 'online', color: 'bg-zinc-100 text-zinc-800 border border-zinc-200' },
+            { id: 'jm', name: 'Julie Martin', initials: 'JM', email: 'j.martin@framatome.fr', role: 'Analyste Risques', dept: 'Audits', status: 'away', color: 'bg-zinc-100 text-zinc-800 border border-zinc-200' },
+            { id: 'td', name: 'Thomas Dubois', initials: 'TD', email: 't.dubois@framatome.fr', role: 'Administrateur Réseaux', dept: 'Security', status: 'online', color: 'bg-zinc-100 text-zinc-800 border border-zinc-200' }
+        ];
+
+        let teams = [
+            {
+                id: 'alpha',
+                name: 'Projet Alpha',
+                status: 'actif',
+                desc: 'Simulation thermohydraulique et calculs de maillage. Haute confidentialité.',
+                icon: 'fas fa-atom',
+                iconColor: 'bg-black text-white',
+                members: ['as', 'ml', 'ja'],
+                link: 'projet.html'
+            },
+            {
+                id: 'surete',
+                name: 'Sûreté Bâtiment',
+                status: 'lecture',
+                desc: 'Protocoles de confinement et audits de sûreté externes réglementaires.',
+                icon: 'fas fa-shield-virus',
+                iconColor: 'bg-gray-100 border border-gray-200 text-gray-600',
+                members: ['pb', 'as'],
+                link: '#'
+            }
+        ];
+
+        // Active State trackers
+        let teamFilter = 'all';
+        let currentContactSelected = null;
+
+        // On DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTeams();
+            renderContacts();
+
+            // Set up live search events
+            document.getElementById('team-search').addEventListener('input', renderTeams);
+            document.getElementById('contact-search').addEventListener('input', renderContacts);
+
+            // Close dropdown when clicking elsewhere
+            document.addEventListener('click', (e) => {
+                const dropdown = document.getElementById('add-member-dropdown');
+                const isClickInside = dropdown.contains(e.target) || e.target.closest('.add-member-trigger');
+                if (!isClickInside) {
+                    hideDropdown();
+                }
+            });
+        });
+
+        // Toast Helper
+        function showToast(message, isSuccess = true) {
+            const toast = document.getElementById('toast-notify');
+            const icon = document.getElementById('toast-icon');
+            const msgSpan = document.getElementById('toast-message');
+
+            msgSpan.textContent = message;
+            if (isSuccess) {
+                icon.className = 'w-5 h-5 bg-emerald-950/40 rounded-full flex items-center justify-center text-emerald-400';
+                icon.innerHTML = '<i class="fas fa-check text-[10px]"></i>';
+            } else {
+                icon.className = 'w-5 h-5 bg-amber-950/40 rounded-full flex items-center justify-center text-amber-400';
+                icon.innerHTML = '<i class="fas fa-exclamation text-[10px]"></i>';
+            }
+
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Teams Render Function
+        function renderTeams() {
+            const query = document.getElementById('team-search').value.toLowerCase().trim();
+            const container = document.getElementById('teams-list');
+            container.innerHTML = '';
+
+            const filtered = teams.filter(team => {
+                const matchesQuery = team.name.toLowerCase().includes(query) || team.desc.toLowerCase().includes(query);
+                const matchesFilter = teamFilter === 'all' || team.status === teamFilter;
+                return matchesQuery && matchesFilter;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-10 border border-dashed border-gray-200 rounded-xl bg-gray-50/50">
+                        <i class="fas fa-users-slash text-2xl text-gray-300 mb-2 block"></i>
+                        <p class="text-xs text-gray-500 font-medium">Aucune équipe trouvée</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(team => {
+                // Determine Badge styling
+                let statusBadge = '';
+                if (team.status === 'actif') {
+                    statusBadge = '<span class="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Actif</span>';
+                } else {
+                    statusBadge = '<span class="bg-gray-100 border border-gray-200 text-gray-600 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider flex items-center gap-1"><i class="fas fa-lock text-[8px]"></i> Lecture seule</span>';
+                }
+
+                // Render overlapping avatars
+                let avatarsHtml = '';
+                team.members.forEach(memberId => {
+                    const contact = contacts.find(c => c.id === memberId);
+                    if (contact) {
+                        avatarsHtml += `
+                            <div class="avatar-overlap w-7 h-7 rounded-full text-[9px] flex items-center justify-center font-bold ring-2 ring-white select-none ${contact.color}" title="${contact.name} (${contact.role})">
+                                ${contact.initials}
+                            </div>
+                        `;
+                    }
+                });
+
+                // Determine primary button
+                let actionBtn = `<a href="${team.link}" class="text-xs font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded transition">Voir le silo</a>`;
+
+                const teamEl = document.createElement('div');
+                teamEl.className = 'glass-card p-6 rounded-2xl flex flex-col justify-between bg-white min-h-[220px] transition-transform duration-300';
+                teamEl.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center shadow-xs ${team.iconColor}">
+                                <i class="${team.icon} text-lg"></i>
+                            </div>
+                            ${statusBadge}
+                        </div>
+                        <h3 class="text-base font-bold text-gray-900 mb-1.5">${team.name}</h3>
+                        <p class="text-xs text-gray-500 line-clamp-3 leading-relaxed mb-4">${team.desc}</p>
+                    </div>
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-100 mt-auto">
+                        <div class="avatar-group">
+                            ${avatarsHtml}
+                            <button onclick="openAddMemberDropdownForTeam('${team.id}', event)" class="w-7 h-7 rounded-full bg-gray-50 hover:bg-gray-100 border border-dashed border-gray-300 text-gray-400 hover:text-black flex items-center justify-center transition-all ml-1.5" title="Ajouter un collaborateur">
+                                <i class="fas fa-plus text-[10px]"></i>
+                            </button>
+                        </div>
+                        ${actionBtn}
+                    </div>
+                `;
+                container.appendChild(teamEl);
+            });
+        }
+
+        // Teams Filter Pills Handler
+        function filterTeams(status) {
+            teamFilter = status;
+            
+            // Toggle active pill classes
+            const buttons = document.querySelectorAll('.team-filter-btn');
+            buttons.forEach(btn => {
+                btn.className = 'team-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-600 hover:text-black bg-white hover:bg-gray-50 border border-gray-200 transition whitespace-nowrap';
+            });
+
+            event.currentTarget.className = 'team-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-black text-white border border-black transition whitespace-nowrap';
+            
+            renderTeams();
+        }
+
+        // Contacts Render Function
+        function renderContacts() {
+            const query = document.getElementById('contact-search').value.toLowerCase().trim();
+            const container = document.getElementById('contacts-list');
+            container.innerHTML = '';
+
+            const filtered = contacts.filter(contact => {
+                return contact.name.toLowerCase().includes(query) || 
+                       contact.email.toLowerCase().includes(query) || 
+                       contact.role.toLowerCase().includes(query) ||
+                       contact.dept.toLowerCase().includes(query);
+            });
+
+            // Update contacts counter badge
+            document.getElementById('contacts-count').textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-400 text-xs">
+                        <i class="fas fa-address-card text-xl mb-2 block text-gray-300"></i>
+                        Aucun collaborateur trouvé
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(contact => {
+                // Presence status class
+                let presenceBadge = '';
+                if (contact.status === 'online') {
+                    presenceBadge = '<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white" title="En ligne"></span>';
+                } else if (contact.status === 'away') {
+                    presenceBadge = '<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-white" title="Absent"></span>';
+                } else {
+                    presenceBadge = '<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-gray-300 rounded-full border-2 border-white" title="Hors ligne"></span>';
+                }
+
+                const item = document.createElement('div');
+                item.className = 'flex items-center justify-between p-3 border border-gray-100 rounded-xl hover:border-gray-300 hover:shadow-xs transition bg-white group';
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3 min-w-0">
+                        <div class="relative shrink-0 select-none">
+                            <div class="w-9 h-9 rounded-full text-xs flex items-center justify-center font-bold ${contact.color}">
+                                ${contact.initials}
+                            </div>
+                            ${presenceBadge}
+                        </div>
+                        <div class="min-w-0">
+                            <p class="text-xs font-bold text-gray-900 truncate">${contact.name}</p>
+                            <p class="text-[10px] text-gray-500 truncate">${contact.role}</p>
+                            <p class="text-[9px] text-gray-400 mono truncate mt-0.5">${contact.email}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-1 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button onclick="openAddMemberDropdown('${contact.id}', event)" class="add-member-trigger w-7 h-7 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-black flex items-center justify-center transition" title="Ajouter à une équipe">
+                            <i class="fas fa-plus text-xs"></i>
+                        </button>
+                        <button onclick="contactUser('${contact.name}')" class="w-7 h-7 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-black flex items-center justify-center transition" title="Envoyer un message">
+                            <i class="far fa-paper-plane text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Contact User action
+        function contactUser(name) {
+            showToast(`Tentative de connexion sécurisée avec ${name}...`, true);
+        }
+
+        // Request Access to a closed team
+        function requestAccess(teamName) {
+            showToast(`Demande de clé d'accès envoyée pour : ${teamName}`, true);
+        }
+
+        // Add Member Dropdown Controls
+        function openAddMemberDropdown(contactId, event) {
+            event.stopPropagation();
+            currentContactSelected = contactId;
+
+            const dropdown = document.getElementById('add-member-dropdown');
+            const contactCard = event.currentTarget.closest('.group');
+            const rect = event.currentTarget.getBoundingClientRect();
+            
+            // Build list of teams inside the dropdown
+            const dropdownTeamsList = document.getElementById('dropdown-teams-list');
+            dropdownTeamsList.innerHTML = '';
+
+            // Filter teams where contact is not already a member
+            const eligibleTeams = teams.filter(t => !t.members.includes(contactId));
+
+            if (eligibleTeams.length === 0) {
+                dropdownTeamsList.innerHTML = `
+                    <div class="px-3 py-2 text-xs text-gray-400 italic">
+                        Déjà présent dans toutes les équipes
+                    </div>
+                `;
+            } else {
+                eligibleTeams.forEach(team => {
+                    const btn = document.createElement('button');
+                    btn.className = 'w-full text-left px-3 py-1.5 rounded hover:bg-gray-100 text-xs font-medium text-gray-700 hover:text-black flex items-center gap-2 transition';
+                    btn.innerHTML = `
+                        <i class="${team.icon} text-[10px] text-gray-400"></i>
+                        <span class="truncate">${team.name}</span>
+                    `;
+                    btn.onclick = () => addContactToTeam(contactId, team.id);
+                    dropdownTeamsList.appendChild(btn);
+                });
+            }
+
+            // Position dropdown near the button
+            dropdown.style.top = `${window.scrollY + rect.bottom + 6}px`;
+            dropdown.style.left = `${window.scrollX + rect.left - 180}px`;
+            
+            dropdown.classList.add('show');
+        }
+
+        // Quick add from team card directly
+        function openAddMemberDropdownForTeam(teamId, event) {
+            event.stopPropagation();
+            
+            // Re-use dropdown, but here we list eligible contacts
+            const dropdown = document.getElementById('add-member-dropdown');
+            const rect = event.currentTarget.getBoundingClientRect();
+            
+            const dropdownTeamsList = document.getElementById('dropdown-teams-list');
+            dropdownTeamsList.innerHTML = '';
+
+            const team = teams.find(t => t.id === teamId);
+            const eligibleContacts = contacts.filter(c => !team.members.includes(c.id));
+
+            if (eligibleContacts.length === 0) {
+                dropdownTeamsList.innerHTML = `
+                    <div class="px-3 py-2 text-xs text-gray-400 italic">
+                        Tous les contacts sont membres
+                    </div>
+                `;
+            } else {
+                eligibleContacts.forEach(contact => {
+                    const btn = document.createElement('button');
+                    btn.className = 'w-full text-left px-3 py-1.5 rounded hover:bg-gray-100 text-xs font-medium text-gray-700 hover:text-black flex items-center gap-2 transition';
+                    btn.innerHTML = `
+                        <div class="w-4 h-4 rounded-full text-[8px] flex items-center justify-center font-bold ${contact.color}">${contact.initials}</div>
+                        <span class="truncate">${contact.name}</span>
+                    `;
+                    btn.onclick = () => addContactToTeam(contact.id, teamId);
+                    dropdownTeamsList.appendChild(btn);
+                });
+            }
+
+            // Position dropdown near the plus icon
+            dropdown.style.top = `${window.scrollY + rect.bottom + 6}px`;
+            dropdown.style.left = `${window.scrollX + rect.left - 180}px`;
+            
+            dropdown.classList.add('show');
+        }
+
+        function hideDropdown() {
+            const dropdown = document.getElementById('add-member-dropdown');
+            dropdown.classList.remove('show');
+        }
+
+        // Core business logic: Add member to team
+        function addContactToTeam(contactId, teamId) {
+            hideDropdown();
+            
+            const team = teams.find(t => t.id === teamId);
+            const contact = contacts.find(c => c.id === contactId);
+
+            if (team && contact) {
+                if (!team.members.includes(contactId)) {
+                    team.members.push(contactId);
+                    
+                    // Re-render
+                    renderTeams();
+                    renderContacts();
+                    
+                    // Show confirmation
+                    showToast(`${contact.name} a été ajouté à l'équipe ${team.name} !`, true);
+                }
+            }
+        }
+
+        // Modal Controls
+        function openModal() {
+            const modal = document.getElementById('team-modal');
+            const content = document.getElementById('team-modal-content');
+            
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.classList.add('opacity-100');
+            
+            content.classList.remove('scale-95', 'opacity-0');
+            content.classList.add('scale-100', 'opacity-100');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('team-modal');
+            const content = document.getElementById('team-modal-content');
+            
+            modal.classList.add('pointer-events-none', 'opacity-0');
+            modal.classList.remove('opacity-100');
+            
+            content.classList.add('scale-95', 'opacity-0');
+            content.classList.remove('scale-100', 'opacity-100');
+
+            // Reset form inputs
+            document.getElementById('modal-team-name').value = '';
+            document.getElementById('modal-team-desc').value = '';
+            document.getElementById('modal-team-status').value = 'actif';
+        }
+
+        // Form Submit: Create Team
+        function handleCreateTeam(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('modal-team-name').value;
+            const status = document.getElementById('modal-team-status').value;
+            const desc = document.getElementById('modal-team-desc').value;
+
+            // Generate an id and pick suitable icon styling
+            const id = 'team_' + Date.now();
+            let icon = 'fas fa-users-gear';
+            let iconColor = 'bg-zinc-100 text-zinc-600 border border-zinc-200';
+
+            if (status === 'actif') {
+                icon = 'fas fa-atom';
+                iconColor = 'bg-black text-white';
+            } else {
+                icon = 'fas fa-shield-virus';
+                iconColor = 'bg-gray-100 border border-gray-200 text-gray-600';
+            }
+
+            // Alice Simon (connected user 'as') is added as default creator
+            const newTeam = {
+                id,
+                name,
+                status,
+                desc,
+                icon,
+                iconColor,
+                members: ['as'],
+                link: '#'
+            };
+
+            teams.unshift(newTeam);
+            
+            // Re-render teams list
+            renderTeams();
+            closeModal();
+            
+            showToast(`L'équipe "${name}" a été créée avec succès !`, true);
+        }
+    </script>
+</body>
+</html>

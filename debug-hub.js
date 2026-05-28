@@ -5,6 +5,7 @@
         { name: "Connexion", file: "connexion.html", icon: "fas fa-sign-in-alt", desc: "Formulaire d'authentification MFA" },
         { name: "Inscription refusée", file: "inscription.html", icon: "fas fa-user-slash", desc: "Page de blocage / Zero Trust" },
         { name: "Explorer", file: "explorer.html", icon: "fas fa-compass", desc: "Annuaire et silos de l'organisation" },
+        { name: "Équipes", file: "equipes.html", icon: "fas fa-users", desc: "Équipes actuelles et contacts de l'organisation" },
         { name: "Projet Alpha", file: "projet.html", icon: "fas fa-atom", desc: "Fichiers et documents du Silo Alpha" },
         { name: "Historique & Timeline", file: "historique.html", icon: "fas fa-history", desc: "Versionnage Git-like d'un document" },
         { name: "Gestion des Accès", file: "permissions.html", icon: "fas fa-user-shield", desc: "Contrôle d'accès des silos" },
